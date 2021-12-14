@@ -40,6 +40,8 @@
 #ifndef QPLATFORMWINDOW_SERENITY_H
 #define QPLATFORMWINDOW_SERENITY_H
 
+#define AK_DONT_REPLACE_STD
+
 #include <qpa/qplatformwindow.h>
 
 #include <LibCore/EventLoop.h>
@@ -51,13 +53,15 @@
 
 #include "qserenitystring.h"
 
-namespace GUI {
+namespace GUI
+{
     class Window;
 }
 
 class QSerenityWindow;
 
-class SerenityProxyWidget : public GUI::Widget {
+class SerenityProxyWidget : public GUI::Widget
+{
     C_OBJECT(SerenityProxyWidget)
 public:
     explicit SerenityProxyWidget(QSerenityWindow*);
@@ -86,16 +90,17 @@ private:
 class QSerenityWindow : public QPlatformWindow
 {
 public:
-    QSerenityWindow(QWindow *window);
+    QSerenityWindow(QWindow* window);
 
-    virtual void setWindowTitle(const QString &text) override;
-    virtual QRect geometry() const;
+    virtual void setWindowTitle(const QString& text) override;
+    virtual QRect geometry() const override;
 
-    SerenityProxyWidget *proxyWidget() { return m_proxyWidget; }
+    SerenityProxyWidget* proxyWidget() { return m_proxyWidget; }
+
 private:
-    GUI::Window *w;
+    GUI::Window* w;
     NonnullRefPtr<GUI::Window> m_window;
     NonnullRefPtr<SerenityProxyWidget> m_proxyWidget;
 };
 
-#endif // QPLATFORMWINDOW_SERENITY_H
+#endif  // QPLATFORMWINDOW_SERENITY_H

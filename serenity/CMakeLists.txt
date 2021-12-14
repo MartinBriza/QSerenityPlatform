@@ -9,40 +9,54 @@ set(HAVE_AUDIO_SERENITY TRUE)
 
 set(CXX_STANDARD 20)
 
-qt_internal_add_plugin(QSerenityIntegrationPluginn
-    OUTPUT_NAME qserenityn
-    TYPE platforms
-    DEFAULT_IF ${QT_QPA_DEFAULT_PLATFORM} MATCHES serenity # special case
-    SOURCES
-        main.cpp
-        qserenitybackingstore.cpp qserenitybackingstore.h
-        qserenityintegration.cpp qserenityintegration.h
-        qserenityscreen.cpp qserenityscreen.h
-        qserenitywindow.cpp qserenitywindow.h
-        qserenitystring.cpp qserenitystring.h
-    DEFINES
-        QT_NO_FOREACH
-    INCLUDE_DIRECTORIES
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${SERENITY_INSTALL_ROOT}/usr/local/include
-        ${SERENITY_INSTALL_ROOT}/usr/include
-    LIBRARIES
-        Qt::Core
-        Qt::CorePrivate
-        Qt::Gui
-        Qt::GuiPrivate
-        ipc 
-        gui
-        gfx
-        core
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+qt_add_plugin(QSerenityIntegrationPlugin
+    SHARED
+    OUTPUT_NAME qserenity
+    PLUGIN_TYPE platforms
+    # DEFAULT_IF ${QT_QPA_DEFAULT_PLATFORM} MATCHES serenity # special case
 )
 
+target_include_directories(QSerenityIntegrationPlugin PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SYSROOT}/usr/local/include
+    ${CMAKE_SYSROOT}/usr/include
+    ${CMAKE_SYSROOT}/usr/local/include/QtCore
+    ${CMAKE_SYSROOT}/usr/local/include/QtGui
+    ${CMAKE_SYSROOT}/usr/local/include/QtGui/6.2.1/QtGui/
+    ${CMAKE_SYSROOT}/usr/local/include/QtGui/6.2.1/
+    ${CMAKE_SYSROOT}/usr/local/include/QtCore/6.2.1/QtCore/
+    ${CMAKE_SYSROOT}/usr/local/include/QtCore/6.2.1/
+    ${CMAKE_SYSROOT}/usr/local/mkspecs/serenity-g++
+)
 
-#### Keys ignored in scope 1:.:.:minimal.pro:<TRUE>:
-# OTHER_FILES = "minimal.json"
+target_sources(QSerenityIntegrationPlugin PRIVATE
+    main.cpp serenity.json
+    qserenitybackingstore.cpp qserenitybackingstore.h
+    qserenityintegration.cpp qserenityintegration.h
+    qserenityscreen.cpp qserenityscreen.h
+    qserenitywindow.cpp qserenitywindow.h
+    qserenitystring.cpp qserenitystring.h
+)
 
-## Scopes:
-#####################################################################
+# TODO figure out why just CXX_STANDARD 20 is not enough
+target_compile_options(QSerenityIntegrationPlugin PRIVATE
+    -std=c++20)
 
-#### Keys ignored in scope 3:.:.:minimal.pro:NOT TARGET___equals____ss_QT_DEFAULT_QPA_PLUGIN:
-# PLUGIN_EXTENDS = "-"
+target_link_libraries(QSerenityIntegrationPlugin PUBLIC
+    Qt::Core
+    Qt::CorePrivate
+    Qt::Gui
+    Qt::GuiPrivate
+    ipc
+    gui
+    gfx
+    core
+    gui
+)
+
+install_targets(${CMAKE_INSTALL_PREFIX}/plugins/platforms QSerenityIntegrationPlugin)

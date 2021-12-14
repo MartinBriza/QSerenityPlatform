@@ -39,10 +39,13 @@
 
 #ifndef QBACKINGSTORE_MINIMAL_H
 #define QBACKINGSTORE_MINIMAL_H
+#define AK_DONT_REPLACE_STD
 
 #include <qpa/qplatformbackingstore.h>
 #include <qpa/qplatformwindow.h>
 #include <QtGui/QImage>
+
+#include <AK/Error.h>
 
 QT_BEGIN_NAMESPACE
 

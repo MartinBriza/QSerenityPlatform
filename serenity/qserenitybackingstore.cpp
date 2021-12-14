@@ -43,6 +43,7 @@
 #include "qscreen.h"
 #include <QtCore/qdebug.h>
 #include <qpa/qplatformscreen.h>
+#include <QGuiApplication>
 
 #include <iostream>
 #include <cstdlib>
@@ -94,7 +95,7 @@ void QSerenityBackingStore::resize(const QSize &size, const QRegion &)
     QImage::Format format = QGuiApplication::primaryScreen()->handle()->format();
     if (mImage.size() != size) {
         mImage = QImage(size, format);
-        proxyWidget->m_buffer = Gfx::Bitmap::try_create(Gfx::BitmapFormat::BGRx8888, Gfx::IntSize(window()->width(), window()->height()));
+        proxyWidget->m_buffer = Gfx::Bitmap::try_create(Gfx::BitmapFormat::BGRx8888, Gfx::IntSize(window()->width(), window()->height())).value();
         proxyWidget->m_buffer->set_volatile();
         proxyWidget->resize(Gfx::IntSize(size.width(), size.height()));
         proxyWidget->update();

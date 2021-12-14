@@ -1,6 +1,6 @@
 # Generated from minimal.pro.
 
-project(QSerenityIntegrationPlugin)
+project(QSerenityIntegrationPluginProject)
 cmake_minimum_required(VERSION 3.20)
 find_package(Qt6 COMPONENTS Core)
 
@@ -13,7 +13,6 @@ include(Qt6Config)
 include(QtBuild)
 include(QtPluginHelpers)
 
-# TODO figure out an out of tree build
-# add_subdirectory(serenity)
+set(CXX_STANDARD 20)
 
-message(FATAL_ERROR "This project can't be built on its own now, you need to insert the contents of the 'serenity' folder into {qtbase_dir}/src/plugins/platforms/serenity to build it")
+add_subdirectory(serenity)

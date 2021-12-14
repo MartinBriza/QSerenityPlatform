@@ -40,6 +40,8 @@
 #ifndef QPLATFORMSCREEN_SERENITY_H
 #define QPLATFORMSCREEN_SERENITY_H
 
+#define AK_DONT_REPLACE_STD
+
 #include <qpa/qplatformscreen.h>
 
 QT_BEGIN_NAMESPACE

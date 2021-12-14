@@ -39,6 +39,7 @@
 
 #ifndef QPLATFORMINTEGRATION_SERENITY_H
 #define QPLATFORMINTEGRATION_SERENITY_H
+#define AK_DONT_REPLACE_STD
 
 #include <qpa/qplatformintegration.h>
 #include <qpa/qplatformscreen.h>
@@ -46,6 +47,7 @@
 #include "qserenityscreen.h"
 #include "qserenitywindow.h"
 
+#include <AK/StdLibExtraDetails.h>
 #include <LibGUI/Application.h>
 
 #include <private/qunixeventdispatcher_qpa_p.h>

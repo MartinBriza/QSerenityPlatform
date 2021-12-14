@@ -186,7 +186,7 @@ SerenityProxyWidget::SerenityProxyWidget(QSerenityWindow *window)
     : m_qtWindow(window)
 {
     std::cerr << __FUNCTION__ << std::endl;
-    m_buffer = Gfx::Bitmap::try_create(Gfx::BitmapFormat::BGRx8888, Gfx::IntSize(window->window()->width(), window->window()->height()));
+    m_buffer = Gfx::Bitmap::try_create(Gfx::BitmapFormat::BGRx8888, Gfx::IntSize(window->window()->width(), window->window()->height())).value();
     update();
 }
 
