@@ -59,4 +59,4 @@ target_link_libraries(QSerenityIntegrationPlugin PUBLIC
     gui
 )
 
-install_targets(${CMAKE_INSTALL_PREFIX}/plugins/platforms QSerenityIntegrationPlugin)
+install_targets(/plugins/platforms QSerenityIntegrationPlugin)
